@@ -1,0 +1,1 @@
+class Water extends LeavingCreator {}

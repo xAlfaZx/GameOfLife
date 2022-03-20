@@ -47,63 +47,11 @@ var matrix = [
   [],
   [],
   [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
 ];
 
 var matrix_value = matrix.length;
 
-var side = 7;
+var side = 20;
 var grassArr = [];
 var eaterArr = [];
 var toxicGrassArr = [];
@@ -119,7 +67,7 @@ function generator() {
 }
 
 function WaterGenerator() {
-  for (let i = 0; i < Math.round(matrix.length / 2); i++) {
+  for (let i = 0; i < Math.round(matrix.length / 10); i++) {
     let randX = Math.round(Math.random() * matrix.length);
     let randY = Math.round(Math.random() * matrix.length);
     WaterArr.push(new Water(randX, randY));
