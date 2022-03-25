@@ -1,18 +1,6 @@
-class Wolf extends LeavingCreator {
-  GetNewCoordinates() {
-    this.directions = [
-      [this.x - 1, this.y - 1],
-      [this.x, this.y - 1],
-      [this.x + 1, this.y - 1],
-      [this.x - 1, this.y],
-      [this.x + 1, this.y],
-      [this.x - 1, this.y + 1],
-      [this.x, this.y + 1],
-      [this.x + 1, this.y + 1],
-    ];
-  }
-
-  // chooseCharacter(character) {
+let LeavingCreator = require("./LeavingCreator");
+module.exports = class Wolf extends LeavingCreator {
+    // chooseCharacter(character) {
   //   this.GetNewCoordinates();
   //   var found = [];
   //   for (var i in this.directions) {
@@ -28,8 +16,11 @@ class Wolf extends LeavingCreator {
   // }
 
   mul() {
-    let newChar20 = random(this.chooseCharacter(0)); // azat taracq
-    //let newChar24 = random(this.chooseCharacter(4));          // wolf
+
+    let urishpop20 = this.chooseCharacter(0);
+    var newChar20 = urishpop20[Math.floor(Math.random() * urishpop20.length)];
+    //let newChar20 = random(this.chooseCharacter(0)); // azat taracq
+    //let newChar24 = random(this.chooseCharacter(4)); // wolf
 
     if (newChar20 /*&& newChar24*/) {
       var newWolf = new Wolf(newChar20[0], newChar20[1]);
@@ -40,9 +31,22 @@ class Wolf extends LeavingCreator {
   }
 
   eat() {
-    var newEat21 = random(this.chooseCharacter(1)); // xoter
-    var newEat22 = random(this.chooseCharacter(2)); // xotaker
-    var newEat23 = random(this.chooseCharacter(3)); // tunavor xot
+    let urishpop20 = this.chooseCharacter(0);
+    var newCell20 = urishpop20[Math.floor(Math.random() * newCell20.length)];
+
+
+    let urishpop21 = this.chooseCharacter(1);
+    let urishpop22 = this.chooseCharacter(2);
+    let urishpop23 = this.chooseCharacter(3);
+
+    var newEat21 = urishpop21[Math.floor(Math.random() * urishpop21.length)];
+    var newEat22 = urishpop22[Math.floor(Math.random() * urishpop22.length)];
+    var newEat23 = urishpop23[Math.floor(Math.random() * urishpop23.length)];
+
+
+    //var newEat21 = random(this.chooseCharacter(1)); // xoter
+    //var newEat22 = random(this.chooseCharacter(2)); // xotaker
+    //var newEat23 = random(this.chooseCharacter(3)); // tunavor xot
 
     if (newEat22) {
       this.energy += 2;
@@ -99,7 +103,9 @@ class Wolf extends LeavingCreator {
   }
 
   move() {
-    var newMove2 = random(this.chooseCharacter(0));
+    let urishpop24 = this.chooseCharacter(4);
+    var newMove2 = urishpop24[Math.floor(Math.random() * urishpop24.length)];
+    //var newMove2 = random(this.chooseCharacter(0));
     this.energy--;
 
     if (this.energy > 0 && newMove2) {
@@ -118,4 +124,4 @@ class Wolf extends LeavingCreator {
     }
     matrix[this.y][this.x] = 0;
   }
-}
+};

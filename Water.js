@@ -1,1 +1,2 @@
-class Water extends LeavingCreator {}
+let LeavingCreator = require("./LeavingCreator");
+module.exports = class Water extends LeavingCreator {};

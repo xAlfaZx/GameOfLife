@@ -1,24 +1,28 @@
-class Eater extends LeavingCreator {
+let LeavingCreator = require("./LeavingCreator");
+module.exports = class Eater extends LeavingCreator {
   constructor(x, y) {
     super(x, y);
     this.energy = 5;
   }
 
-  GetNewCoordinates() {
-    this.directions = [
-      [this.x - 1, this.y - 1],
-      [this.x, this.y - 1],
-      [this.x + 1, this.y - 1],
-      [this.x - 1, this.y],
-      [this.x + 1, this.y],
-      [this.x - 1, this.y + 1],
-      [this.x, this.y + 1],
-      [this.x + 1, this.y + 1],
-    ];
-  }
+  // GetNewCoordinates() {
+  //   this.directions = [
+  //     [this.x - 1, this.y - 1],
+  //     [this.x, this.y - 1],
+  //     [this.x + 1, this.y - 1],
+  //     [this.x - 1, this.y],
+  //     [this.x + 1, this.y],
+  //     [this.x - 1, this.y + 1],
+  //     [this.x, this.y + 1],
+  //     [this.x + 1, this.y + 1],
+  //   ];
+  // }
 
   mul() {
-    let newChar2 = random(this.chooseCharacter(0)); // azat taracq
+    let urishpop20 = this.chooseCharacter(0);
+    var newChar2 = urishpop20[Math.floor(Math.random() * urishpop20.length)];
+
+    //let newChar2 = random(this.chooseCharacter(0)); // azat taracq
 
     if (newChar2) {
       var newEater = new Eater(newChar2[0], newChar2[1]);
@@ -29,8 +33,11 @@ class Eater extends LeavingCreator {
   }
 
   eat() {
+    let urishpop21 = this.chooseCharacter(1);
+    var newEat21 = urishpop21[Math.floor(Math.random() * urishpop21.length)];
+
     //this.GetNewCoordinates();
-    var newEat21 = random(this.chooseCharacter(1)); // xoter
+    ///////////////var newEat21 = random(this.chooseCharacter(1)); // xoter
     //var newEat22 = random(this.chooseCharacter(2));         // xotaker
     //var newEat23 = random(this.chooseCharacter(3));         // tunavor xot
 
@@ -97,6 +104,10 @@ class Eater extends LeavingCreator {
   }
 
   move() {
+
+    let urishpop20 = this.chooseCharacter(0);
+    var newMove2 = urishpop20[Math.floor(Math.random() * urishpop20.length)];
+
     //this.GetNewCoordinates();
     var newMove2 = random(this.chooseCharacter(0));
     this.energy--;
@@ -117,4 +128,4 @@ class Eater extends LeavingCreator {
     }
     matrix[this.y][this.x] = 0;
   }
-}
+};

@@ -1,101 +1,15 @@
-var matrix = [
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-  [],
-];
-
 var matrix_value = matrix.length;
-
-var side = 20;
-var grassArr = [];
-var eaterArr = [];
-var toxicGrassArr = [];
-var WolfArr = [];
-var WaterArr = [];
-
-function generator() {
-  for (var y = 0; y < matrix.length; y++) {
-    for (var x = 0; x < matrix_value; x++) {
-      matrix[y].push(Math.round(Math.random() * 4));
-    }
-  }
-}
-
-function WaterGenerator() {
-  for (let i = 0; i < Math.round(matrix.length / 10); i++) {
-    let randX = Math.round(Math.random() * matrix.length);
-    let randY = Math.round(Math.random() * matrix.length);
-    WaterArr.push(new Water(randX, randY));
-    matrix[randY][randX] = 5;
-  }
-}
+var socket = io()
 
 function setup() {
   frameRate(10);
   generator();
   WaterGenerator();
   createCanvas(matrix[0].length * side, matrix.length * side);
-  for (var y = 0; y < matrix.length; y++) {
-    for (var x = 0; x < matrix[y].length; x++) {
-      if (matrix[y][x] == 1) {
-        grassArr.push(new Grass(x, y));
-      } else if (matrix[y][x] == 2) {
-        eaterArr.push(new Eater(x, y));
-      } else if (matrix[y][x] == 3) {
-        toxicGrassArr.push(new ToxicGrass(x, y));
-      } else if (matrix[y][x] == 4) {
-        WolfArr.push(new Wolf(x, y));
-      } else if (matrix[y][x] == 5) {
-        WaterArr.push(new Water(x, y));
-      }
-    }
-  }
 }
+
+socket.on ('generator', generator)
+io.sockets.emit('generator', generator)
 
 function draw() {
   for (var y = 0; y < matrix.length; y++) {
