@@ -1,4 +1,4 @@
-let LeavingCreator = require("./LeavingCreator");
+
 module.exports = class LeavingCreator {
   constructor(x, y) {
     this.x = x;
@@ -15,6 +15,7 @@ module.exports = class LeavingCreator {
       [this.x + 1, this.y + 1],
     ];
   }
+
   chooseCell(character) {
     var found = [];
     for (var i in this.directions) {
@@ -28,8 +29,9 @@ module.exports = class LeavingCreator {
     }
     return found;
   }
+
   chooseCharacter(character) {
-    this.GetNewCoordinates();
+    // this.GetNewCoordinates();
     var found = [];
     for (var i in this.directions) {
       var x = this.directions[i][0];

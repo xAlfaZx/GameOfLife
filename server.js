@@ -8,21 +8,28 @@ var fs = require("fs");
 app.use(express.static("."));
 
 app.get('/', function (req, res) {
-    res.redirect('index.html');
+    res.redirect('Indexp2.html');
 });
 server.listen(3000);
 
-var grassArr = [];
-var eaterArr = [];
-var toxicGrassArr = [];
-var WolfArr = [];
-var WaterArr = [];
+ grassArr = [];
+ eaterArr = [];
+ toxicGrassArr = [];
+ WolfArr = [];
+ //WaterArr = [];
+ //matrix_value = 30;
 //10
 
 //քո սկրիպտ ֆայլից տպի մատրիցդ գեներացնոլու հատվածը և դատարկ զանգվածը
 // ինձ մոտ այն չի գեներացվում,,,քեզ մոտ լաաաավ կլինի , որ գեներացվի
+Grass = require("./Grass_Class")
+Eater = require("./Eater")
+ToxicGrass = require("./ToxicGrass")
+//Water = require("./Water")
+Wolf = require("./Wolf")
 
-var matrix = [
+
+matrix = [
   [],[],[],[],[],[],
   [],[],[],[],[],[],
   [],[],[],[],[],[],
@@ -33,21 +40,36 @@ var matrix = [
   [],[],[],[],[],[],
 ];
 
-Grass = require("./Grass")
-Eater = require("./Eater")
-ToxicGrass = require("./ToxicGrass")
-Water = require("./Water")
-Wolf = require("./Wolf")
-
-function generator() {
-  for (var y = 0; y < matrix.length; y++) {
-    for (var x = 0; x < matrix_value; x++) {
+function generator()
+{
+  for (var y = 0; y < matrix.length; y++)
+  {
+    for (var x = 0; x < 30; x++)
+    {
       matrix[y].push(Math.round(Math.random() * 4));
     }
   }
 }
 
-io.sockets.emit('generator', matrix)
+//generator();
+
+io.sockets.emit("send matrix", matrix)
+
+// function WaterGenerator()
+// {
+//   for (let i = 0; i < Math.round((matrix.length)/20); i++)
+//   {
+//       let randX = Math.round(Math.random() * matrix.length)
+//       let randY = Math.round(Math.random() * matrix.length)
+
+//       WaterArr.push (new Water(randX,randY))
+//       matrix[randY][randX] = 5;
+//   }
+// }
+
+//WaterGenerator();
+
+//io.sockets.emit("send matrix", matrix)
 
 //այստեղ քո պատրաստի թվերով լցված զանգվածը ուղարկում ես կլիենտին:
 //սոքեթի emit մեթոդը թույլ է տալիս առաջին արգումենտով ստեղծել իվենթի անունը,
@@ -65,50 +87,62 @@ io.sockets.emit('generator', matrix)
     //քանի որ քո կլասս-երը արդեն մոդուլներ են և ոչ մի կապ չունեն html ֆայլիդ հետ՝
     //այլ աշխատում են սերվերի վրա:
     //Դու պետք է նրանց իմպորտ անես: Ինձ մոտ նրանք երկուսն են, քեզ մոտ ավելի շատ
-     Grass = require("../../Downloads/third 1/Grass")
-     GrassEater = require("../../Downloads/third 1/GrassEater")
-
     //Այժմ լցնենք մատրիցը օբյեկտներով
     //սարքի մի հատ ֆունկցիա օրինակ createObject անունով
     //և էստեղ բեր քո սկրիպտ ֆայլի օբյեկտներով լցնող հատվածը
-    function createObject(matrix) {
-      for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-          if (matrix[y][x] == 1) {
+
+
+    function createObject()
+    {
+      for (var y = 0; y < matrix.length; y++)
+      {
+        for (var x = 0; x < matrix[y].length; x++)
+        {
+          if (matrix[y][x] == 1)
+          {
             grassArr.push(new Grass(x, y));
-          } else if (matrix[y][x] == 2) {
-            eaterArr.push(new Eater(x, y));
-          } else if (matrix[y][x] == 3) {
-            toxicGrassArr.push(new ToxicGrass(x, y));
-          } else if (matrix[y][x] == 4) {
-            WolfArr.push(new Wolf(x, y));
-          } else if (matrix[y][x] == 5) {
-            WaterArr.push(new Water(x, y));
           }
+          else if (matrix[y][x] == 2)
+          {
+            eaterArr.push(new Eater(x, y));
+          }
+          else if (matrix[y][x] == 3)
+          {
+            toxicGrassArr.push(new ToxicGrass(x, y));
+          }
+          else if (matrix[y][x] == 4)
+          {
+            WolfArr.push(new Wolf(x, y));
+          }
+          // else if (matrix[y][x] == 5)
+          // {
+          //   WaterArr.push(new Water(x, y));
+          // }
         }
       }
-        }
-        // և կրկին ուղարկի կլիենտիդ:
-        //չմոռանաս , որ emit-ը տվյալ ուղարկողն է, իսկ on-ը ստացողը և կատարողը
-        //այս դեպքում 2-րդ արգումենտը տվյալն է
-        io.sockets.emit('send matrix', matrix)
-
-
+      io.sockets.emit("send matrix", matrix)
     }
+
 
 
     //հիմա անցնենք նրանց վայրենի գործունեությանը
     //որևէ անունով կոչիր ֆունկցիադ և մեջը դիր մեթոդների հատվածը:
 
-    function game() {
-        for (var i in grassArr) {
-            grassArr[i].mul()
-        }
-        for (var i in grassEaterArr) {
-            grassEaterArr[i].eat();
-        }
-        //այո, դու ճիշտ ես տեսնում, կրկին և կրկին
-        io.sockets.emit("send matrix", matrix);
+    function game()
+    {
+      for (var i in grassArr)
+      {
+        grassArr[i].mul();
+      }
+      for (var i in eaterArr)
+      {
+        eaterArr[i].eat();
+      }
+      for (var i in WolfArr)
+      {
+        WolfArr[i].eat();
+      }
+      io.sockets.emit("send matrix", matrix);
     }
 
     //մեր խաղի շարժը լինելու է 1 վարկյանը մեկ
@@ -123,9 +157,21 @@ io.sockets.emit('generator', matrix)
       //և մենք դեռ չէինք կանչել createObject ֆունկցիան
       // էստեղ կկանչենք )))
 io.on('connection', function (socket) {
-    createObject(matrix)
+    createObject();
 })
 
+var statistics = {};
+
+setInterval(function() {
+  statistics.Grass_CLass = grassArr.length;
+  statistics.Eater = eaterArr.length;
+  statistics.ToxicGrass = ToxicGrass.length;
+  //statistics.Water = Water.length;
+  statistics.Wolf = Wolf.length;
+  fs.writeFile("statistics.json", JSON.stringify(statistics), function(){
+      console.log("send")
+  })
+},1000)
 //դե ինչ այսօր այսքանը:
 
 //ինձ համար շատ կարևոր է , որ հենց դու շատ լավ հասկանաս էս

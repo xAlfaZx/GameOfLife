@@ -31,8 +31,8 @@ module.exports = class Wolf extends LeavingCreator {
   }
 
   eat() {
-    let urishpop20 = this.chooseCharacter(0);
-    var newCell20 = urishpop20[Math.floor(Math.random() * newCell20.length)];
+    var urishpop20 = this.chooseCharacter(0);
+    var newCell20 = urishpop20[Math.floor(Math.random() * urishpop20.length)];
 
 
     let urishpop21 = this.chooseCharacter(1);

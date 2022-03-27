@@ -33,19 +33,19 @@ module.exports = class Eater extends LeavingCreator {
   }
 
   eat() {
-    let urishpop21 = this.chooseCharacter(1);
-    var newEat21 = urishpop21[Math.floor(Math.random() * urishpop21.length)];
+    var urishpop21 = this.chooseCharacter(1);
+    var newEater21 = urishpop21[Math.floor(Math.random() * urishpop21.length)];
 
     //this.GetNewCoordinates();
     ///////////////var newEat21 = random(this.chooseCharacter(1)); // xoter
     //var newEat22 = random(this.chooseCharacter(2));         // xotaker
     //var newEat23 = random(this.chooseCharacter(3));         // tunavor xot
 
-    if (newEat21) {
+    if (newEater21) {
       this.energy++;
       matrix[this.y][this.x] = 0;
-      this.x = newEat21[0];
-      this.y = newEat21[1];
+      this.x = newEater21[0];
+      this.y = newEater21[1];
       matrix[this.y][this.x] = 2;
       for (var i in grassArr) {
         if (grassArr[i].y == this.y && grassArr[i].x == this.x) {
@@ -109,7 +109,7 @@ module.exports = class Eater extends LeavingCreator {
     var newMove2 = urishpop20[Math.floor(Math.random() * urishpop20.length)];
 
     //this.GetNewCoordinates();
-    var newMove2 = random(this.chooseCharacter(0));
+    //var newMove2 = random(this.chooseCharacter(0));
     this.energy--;
 
     if (this.energy > 0 && newMove2) {
