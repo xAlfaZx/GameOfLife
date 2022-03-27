@@ -31,8 +31,8 @@ module.exports = class Wolf extends LeavingCreator {
   }
 
   eat() {
-    var urishpop20 = this.chooseCharacter(0);
-    var newCell20 = urishpop20[Math.floor(Math.random() * urishpop20.length)];
+    //var urishpop20 = this.chooseCharacter(0);
+    //var newCell20 = urishpop20[Math.floor(Math.random() * urishpop20.length)];
 
 
     let urishpop21 = this.chooseCharacter(1);
@@ -48,55 +48,71 @@ module.exports = class Wolf extends LeavingCreator {
     //var newEat22 = random(this.chooseCharacter(2)); // xotaker
     //var newEat23 = random(this.chooseCharacter(3)); // tunavor xot
 
-    if (newEat22) {
+    if (newEat22)
+    {
       this.energy += 2;
       matrix[this.y][this.x] = 0;
       this.x = newEat22[0];
       this.y = newEat22[1];
       matrix[this.y][this.x] = 4;
-      for (var i in eaterArr) {
-        if (eaterArr[i].y == this.y && eaterArr[i].x == this.x) {
+      for (var i in eaterArr)
+      {
+        if (eaterArr[i].y == this.y && eaterArr[i].x == this.x)
+        {
           eaterArr.splice(i, 1);
           break;
         }
       }
-      if (this.energy == 50) {
+      if (this.energy == 50)
+      {
         this.energy = 5;
         this.mul();
       }
-    } else if (newEat21) {
-      this.energy++;
-      matrix[this.y][this.x] = 0;
-      this.x = newEat21[0];
-      this.y = newEat21[1];
-      matrix[this.y][this.x] = 4;
-      for (var i in grassArr) {
-        if (grassArr[i].y == this.y && grassArr[i].x == this.x) {
-          grassArr.splice(i, 1);
-          break;
-        }
-      }
-
-      if (this.energy == 50) {
-        this.energy = 5;
-        this.mul();
-      }
-    } else if (newEat23) {
+    }
+    else if (newEat23)
+    {
       matrix[this.y][this.x] = 0;
       this.x = newEat23[0];
       this.y = newEat23[1];
       matrix[this.y][this.x] = 4;
       this.die();
-      for (var i in toxicGrassArr) {
-        if (toxicGrassArr[i].y == this.y && toxicGrassArr[i].x == this.x) {
+      for (var i in toxicGrassArr)
+      {
+        if (toxicGrassArr[i].y == this.y && toxicGrassArr[i].x == this.x)
+        {
           toxicGrassArr.splice(i, 1);
           break;
         }
       }
-    } else {
+    }
+    else if (newEat21)
+    {
+      this.energy++;
+      matrix[this.y][this.x] = 0;
+      this.x = newEat21[0];
+      this.y = newEat21[1];
+      matrix[this.y][this.x] = 4;
+      for (var i in grassArr)
+      {
+        if (grassArr[i].y == this.y && grassArr[i].x == this.x)
+        {
+          grassArr.splice(i, 1);
+          break;
+        }
+      }
+      if (this.energy == 50)
+      {
+        this.energy = 5;
+        this.mul();
+      }
+    }
+
+    else
+    {
       this.move();
 
-      if (this.energy <= 0) {
+      if (this.energy <= 0)
+      {
         this.die();
       }
     }

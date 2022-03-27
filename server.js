@@ -10,48 +10,35 @@ app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('Indexp2.html');
 });
-server.listen(3000);
+server.listen(3005);
 
  grassArr = [];
  eaterArr = [];
  toxicGrassArr = [];
  WolfArr = [];
- //WaterArr = [];
- //matrix_value = 30;
-//10
+ WaterArr = [];
 
-//քո սկրիպտ ֆայլից տպի մատրիցդ գեներացնոլու հատվածը և դատարկ զանգվածը
-// ինձ մոտ այն չի գեներացվում,,,քեզ մոտ լաաաավ կլինի , որ գեներացվի
 Grass = require("./Grass_Class")
 Eater = require("./Eater")
 ToxicGrass = require("./ToxicGrass")
-//Water = require("./Water")
+Water = require("./Water")
 Wolf = require("./Wolf")
 
+var n = 50;
+matrix = [];
 
-matrix = [
-  [],[],[],[],[],[],
-  [],[],[],[],[],[],
-  [],[],[],[],[],[],
-  [],[],[],[],[],[],
-  [],[],[],[],[],[],
-  [],[],[],[],[],[],
-  [],[],[],[],[],[],
-  [],[],[],[],[],[],
-];
+function rand(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
-function generator()
-{
-  for (var y = 0; y < matrix.length; y++)
-  {
-    for (var x = 0; x < 30; x++)
-    {
-      matrix[y].push(Math.round(Math.random() * 4));
-    }
+for (let i = 0; i < n; i++) {
+  matrix[i] = [];
+  for (let j = 0; j < n; j++) {
+      matrix[i][j] = Math.floor(rand(0, 7))
+
   }
 }
 
-//generator();
 
 io.sockets.emit("send matrix", matrix)
 
@@ -114,10 +101,10 @@ io.sockets.emit("send matrix", matrix)
           {
             WolfArr.push(new Wolf(x, y));
           }
-          // else if (matrix[y][x] == 5)
-          // {
-          //   WaterArr.push(new Water(x, y));
-          // }
+           else if (matrix[y][x] == 5)
+           {
+             WaterArr.push(new Water(x, y));
+           }
         }
       }
       io.sockets.emit("send matrix", matrix)
@@ -162,16 +149,16 @@ io.on('connection', function (socket) {
 
 var statistics = {};
 
-setInterval(function() {
-  statistics.Grass_CLass = grassArr.length;
-  statistics.Eater = eaterArr.length;
-  statistics.ToxicGrass = ToxicGrass.length;
-  //statistics.Water = Water.length;
-  statistics.Wolf = Wolf.length;
-  fs.writeFile("statistics.json", JSON.stringify(statistics), function(){
-      console.log("send")
-  })
-},1000)
+// setInterval(function() {
+//   statistics.Grass_CLass = grassArr.length;
+//   statistics.Eater = eaterArr.length;
+//   statistics.ToxicGrass = ToxicGrass.length;
+//   //statistics.Water = Water.length;
+//   statistics.Wolf = Wolf.length;
+//   fs.writeFile("statistics.json", JSON.stringify(statistics), function(){
+//       console.log("send")
+//   })
+// },1000)
 //դե ինչ այսօր այսքանը:
 
 //ինձ համար շատ կարևոր է , որ հենց դու շատ լավ հասկանաս էս
